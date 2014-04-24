@@ -1,0 +1,291 @@
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import javax.swing.JOptionPane;
+
+public class AssignmentEight
+{
+	public static void main(String[] args) throws FileNotFoundException
+	{
+		int[][] temps = readTemps(args[0]);
+		int month = getMonth();
+		int day = getDay();
+		
+		displayAllTemps(temps);
+		display("Temperature for " + getMonthName(month) + "," + day, getTemp(temps, month, day));
+		display("Absolute maximum", getAbsoluteMax(temps));
+		display("Absolute Minimum", getAbsoluteMin(temps));
+		display("Minimum for " + getMonthName(month), getMinForMonth(temps, month));
+		display("Minimum for day " + day, getMinForDay(temps, day));
+		display("Average", getAverage(temps));
+		display("Average for " + getMonthName(month), getAverageForMonth(temps, month));
+		display("Average for day " + day, getAverageForDay(temps, day));
+		
+	}
+	
+	public static double getAverageForDay(int[][]temps, int day)
+	{
+		double sum = 0, Average;
+		int count = 0;
+		for (int i = 0; i < temps[0].length; i++)
+		{
+			sum = sum + temps[i][day-1];
+			count++;
+		}
+		Average = sum/count;
+		return Average	;
+	}
+	
+	public static double getAverageForMonth(int[][] temps, int month)
+	{
+		double sum = 0, Average;
+		
+		for (int i = 0; i < temps[0].length; i++)
+		{
+			sum = sum + temps[month-1][i];
+		}
+		Average = sum/temps[0].length;
+		return Average;
+	}
+	
+	public static double getAverage(int[][] temps)
+	{
+		double sum = 0, Average;
+		int counter = 0;
+		for (int i = 0; i < temps.length; i++)
+		{
+			for (int j = 0; j < temps[0].length; j++)
+			{
+				sum = sum + temps[i][j];
+				counter++;
+			}
+		}
+		Average = sum/counter;
+		return Average;
+	}
+	
+	public static int getMinForDay(int [][]temps, int day)
+	{
+		int Minimum = temps[0][day-1];
+		for (int i = 0; i < temps.length; i++)
+		{
+			int NewMin = temps[i][day-1];
+			if ( NewMin < Minimum)
+			{
+				Minimum = NewMin;
+			}
+		}
+		return Minimum;
+	}
+	
+	public static int getMinForMonth(int [][] temps, int month)
+	{
+		int Minimum = temps[month-1][0];
+		for (int i = 0; i < temps[0].length; i++)
+		{
+			int NewMin = temps[month-1][i];
+			if (NewMin < Minimum)
+			{
+				Minimum = NewMin;
+			}
+		}
+		return Minimum;
+	}
+	
+	public static int getAbsoluteMin(int[][] temps)
+	{
+		int Min = temps[0][0]; 
+		// Sets Min to the First Value of the 2-D array
+		
+		for (int i = 0; i<temps.length; i++)
+		{
+			for (int j = 0; j < temps[0].length; j++)
+			{
+				// Sets NewMin to the arrays starting from [0][0] and checks every Array
+				int NewMin = temps[i][j];
+				if ( Min > NewMin)
+				{
+					Min = NewMin;
+				}
+			}
+		}
+		return Min;
+	}
+	
+	public static int getAbsoluteMax(int[][] temps)
+	{
+		int Max = temps[0][0];
+		// Sets Max to the First Value of 2-D array
+		for (int i = 0; i<temps.length; i++)
+		{
+			for (int j = 0; j < temps[0].length; j++)
+			{
+				// Sets NewMax to the arrays starting from [0][0] and checks every array
+				int NewMax = temps[i][j];
+				if ( NewMax > Max)
+				{
+					Max = NewMax;
+				}
+			}
+		}
+		return Max;
+	}
+	
+	private static void display(String temp, double d) 
+	{
+		System.out.print("\n" + temp + " is " +d);
+	}
+
+	private static String getMonthName(int month) {
+		// Display month name inputed by getMonth
+		String[] mon = 
+		{"Jan",
+		 "Feb",
+		 "Mar",
+		 "Apr",
+		 "May",
+		 "Jun",
+		 "Jul",
+		 "Aug",
+		 "Sep",
+		 "Oct",
+		 "Nov",
+		 "Dec"
+		};
+		
+		String s = mon[month-1];
+		return s;
+	}
+
+	public static int getTemp(int[][] temps, int month, int day) 
+	{
+		//gets temperature for day of the month
+		int temp = temps[month-1][day-1];
+		return temp;
+	}
+	
+
+	
+	private static void displayAllTemps(int[][] temps) 
+	{
+		String[] month = 
+		{"Jan",
+		 "Feb",
+		 "Mar",
+		 "Apr",
+		 "May",
+		 "Jun",
+		 "Jul",
+		 "Aug",
+		 "Sep",
+		 "Oct",
+		 "Nov",
+		 "Dec"
+		};
+		
+		// Displays Temperature According to Month and its Average
+		for (int i = 0; i < temps.length; i++)
+		{
+			System.out.print(month[i] + " ");
+			double average = 0;
+			for (int j = 0; j < temps[0].length; j++)
+			{
+				System.out.print(temps[i][j] + " ");
+				average = average + temps[i][j];
+			}
+			average = average/temps[0].length;
+			System.out.println("Average is: " + average);
+		}
+		
+		//Displays Average for Days
+		System.out.println("\nAverage for days\n");
+		int day = 0;
+		for (int j = 0; j<temps[0].length; j++)
+		{
+			double DayAverage = 0;
+			for (int i = 0; i < temps.length; i++)
+			{
+				DayAverage = DayAverage + temps[i][j];
+			}
+			day++;
+			DayAverage = DayAverage/temps.length;
+			System.out.print("Day " + day + ": " + DayAverage + " ");
+			if (day == 5)
+			{
+				System.out.println();
+			}
+		}
+		
+	}
+
+	public static int[][] readTemps(String x) throws FileNotFoundException
+	{
+		Scanner sc = new Scanner(new File(x));
+		int rows = 0, columns = 0;
+		
+		//open File Check for rows
+		while (sc.hasNextLine())
+		{
+			sc.nextLine();
+			rows ++;
+		}
+		sc.close();
+		
+		//Reopen File Check for columns
+		sc = new Scanner(new File(x));
+		while (sc.hasNextInt())
+		{
+			sc.nextInt();
+			columns++;
+		}
+		columns = columns/rows;
+		sc.close();
+		//Reopen File Store input into 2-D array
+		int temp [][] = new int[rows][columns];
+		
+		//System.out.print(temp.length); check length of rows
+		//System.out.print(temp[0].length); check length of columns
+		
+		sc = new Scanner(new File(x));
+		for (int i = 0; i < temp.length; i ++)
+		{
+			for (int j=0; j < temp[0].length; j++)
+			{
+				temp[i][j] = sc.nextInt();
+			}
+		}
+		sc.close();
+		return temp;
+	}
+	
+	private static int getMonth()
+	{
+		int month = 0;
+		
+		do
+		{
+			month = Integer.parseInt(
+							JOptionPane.showInputDialog("Enter Month (1-12)"));
+		} while(month < 1 || month > 12);
+		
+		return month;
+				
+	}
+
+	private static int getDay()
+	{
+		int day = 0;
+		
+		do
+		{
+			day = Integer.parseInt(
+							JOptionPane.showInputDialog("Enter Day (1-" + Integer.toString(NUM_DAYS_PER_MONTH) + ")"));
+		} while(day < 1 || day > NUM_DAYS_PER_MONTH);
+		
+		return day;
+	}
+
+         private static final int NUM_DAYS_PER_MONTH = 10;
+
+}
