@@ -1,0 +1,85 @@
+/**
+ * 
+ */
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+import java.util.Random;
+
+/**
+ * @author Kumin
+ * 
+ */
+public class AssignmentFive {
+
+	public static void main(String[] args) {
+		Random generator = new Random();
+		int OriginalValue = BankAccount();
+		int hand = 0;
+		int Value = OriginalValue;
+		while (Value > 0) {
+			int wage = askWage(Value);
+			Value = playTheGame(wage, Value, generator);
+			System.out.print("Bank is " + Value + "\n");
+			hand++;
+		}
+		System.out.print("You played " + hand + " hands with an original bank of " + OriginalValue);
+
+	}
+
+	public static int BankAccount() {
+		int Money;
+		String Bank = JOptionPane
+				.showInputDialog("Enter amount for your bank");
+		Money = Integer.parseInt(Bank);
+		return Money;
+	}
+
+	public static int rollDice(Random generator) {
+		int Point = (generator.nextInt(6) + 1) + (generator.nextInt(6) + 1);
+		return Point;
+	}
+
+	public static int askWage(int x) {
+		int Wage;
+		String AskWage = JOptionPane.showInputDialog("Bank is: " + x + "\nEnter amount for your wager from 1-" + x);
+		Wage = Integer.parseInt(AskWage);
+		while (Wage > x || Wage == 0)
+		{
+			String AskWage1 = JOptionPane.showInputDialog("Invalid Amount" + "\nPlease enter amount for your wager from 1-" + x);
+			Wage = Integer.parseInt(AskWage1);
+		}
+		return Wage;
+	}
+
+	public static int playTheGame(int Wage, int Value, Random generator) {
+		int TotalValue = Value;
+		int roll = 0;
+		int DiceNumber = rollDice(generator);
+		roll++;
+		System.out.print("The Point is: " + DiceNumber +"\n");
+		int SecondRoll;
+		if (DiceNumber == 7) {
+			TotalValue = Value + Wage;
+			System.out.print("You win wager " + "(" + Wage + ")" +" in "+ roll + " roll. ");
+		} else {
+			SecondRoll = rollDice(generator);
+			roll++;
+			System.out.print(SecondRoll);
+			while (SecondRoll != 7 && DiceNumber != SecondRoll) {
+				SecondRoll = rollDice(generator);
+				roll++;
+				System.out.print(" " + SecondRoll);
+			}
+			System.out.print("\n");
+			if (DiceNumber == SecondRoll) {
+				TotalValue = Value + Wage;
+				System.out.print("You win wager " + "(" + Wage + ")" +" in "+ roll + " rolls. ");
+			} else if (SecondRoll == 7) {
+				TotalValue = Value - Wage;
+				System.out.print("You lose wager " + "(" + Wage + ")" +" in "+ roll + " rolls. ");
+			}
+		}
+
+		return TotalValue;
+	}
+}
