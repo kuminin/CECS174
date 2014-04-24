@@ -1,0 +1,145 @@
+/* Complete the following code. The methods you write should use either: for, 
+ * while, or do/while loops. Choose the one that is most appropriate.
+ *
+ * Output
+ *======
+Statistics for Quiz Five
+
+Sum is: 1835.0
+Sum squared is: 150163.0
+Average is: 79.78260869565217
+Minimum is: 48.0
+Maximum is: 99.0
+Standard Deviation is: 12.789113990928687
+
+*/
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.math.*;
+
+public class AssignmentSeven 
+{
+	public static void main(String[] args) throws FileNotFoundException
+	{	
+		double[] numbers = readInput(args[0]);
+		System.out.println("Statistics for Quiz Five\n");
+		
+		//doOutput("Sum", doSum(numbers));
+		//doOutput("Sum squared",doSumSquared(numbers));
+		//doOutput("Average",doAverage(numbers));
+		//doOutput("Minimum",doMin(numbers));
+		//doOutput("Maximum",doMax(numbers));
+		//doOutput("Standard Deviation",doStdDev(numbers));
+		
+	}
+
+	public static double[] readInput(String x) throws FileNotFoundException
+	{
+		double counter = 0;
+		Scanner in = null;
+		try 
+		{
+			in = new Scanner(new File(x));
+			while (in.hasNextInt())
+			{
+				counter++;
+				in.nextInt();
+			}
+		}  
+		finally
+		{
+			in.close();
+		}
+		
+		double[] scores = new double[(int) counter];
+		try
+		{
+			in = new Scanner(new File(x));
+			for(int i= 0; i < scores.length; i++)
+			{
+				scores[i] = in.nextInt();
+			}
+		}
+		finally
+		{
+			in.close();
+		}
+		return scores;
+	}
+
+	public static double doSum(double[] numbers)
+	{
+		double sum = 0;
+		for(int i=0; i < numbers.length; i++)
+		{
+			sum = numbers[i] + sum;
+		}
+		return sum;
+	}
+	
+	public static double doSumSquared(double[] numbers)
+	{
+		double sumSquared = 0;
+		for (int i=0; i<numbers.length; i++)
+		{
+			sumSquared = (numbers[i] * numbers[i]) + sumSquared;
+		}
+		return sumSquared;
+	}
+	
+	public static double doAverage(double[] numbers)
+	{
+		double Average = doSum(numbers)/numbers.length;
+		return Average;
+	}
+	
+	public static double doMin(double[] numbers)
+	{
+		double Min = numbers[0];
+		for (int i=0; i < numbers.length; i++)
+		{
+			double newMin = numbers[i];
+			if ( Min > newMin )
+			{
+				Min = newMin;
+			}
+		}
+		return Min;
+	}
+	
+	public static double doMax(double[] numbers)
+	{
+		double Max = numbers[0];
+		for (int i=0; i < numbers.length; i++)
+		{
+			double newMax = numbers[i];
+			if ( newMax > Max)
+			{
+				Max = newMax;
+			}
+		}
+		return Max;
+	}
+	
+	public static double doStdDev(double[] numbers)
+	{
+		double sum = 0;
+		double Average = doAverage(numbers);
+		for (int i=0; i<numbers.length; i++)
+		{
+			sum = sum + Math.pow((numbers[i]-Average), 2);
+		}
+		sum = sum/(numbers.length);
+		sum = Math.sqrt(sum);
+		return sum;
+	}
+	public static void doOutput ( String x, double y)
+	{
+		System.out.println(x + " is : " + y);
+	}
+	
+}
+
