@@ -1,0 +1,59 @@
+/**
+ * My Assignment Three
+ * @author Kumin In
+ *
+ */
+import java.util.Scanner; // imports scanner
+import java.io.*; // imports all the java.io file
+import java.lang.Exception;
+
+public class AssignmentThree
+{
+	public static void main (String[] args )
+	{
+		Scanner sc = null;
+
+		try
+		{
+			sc = new Scanner(new File(args[0]));
+
+			while(sc.hasNextInt())
+			{
+				int x = sc.nextInt(), y = sc.nextInt(), z = sc.nextInt(), temp;
+
+				System.out.print("Input: " + x + ", " + y + ", " + z + " Sorted is: ");
+
+				if ( z < y )
+				{
+					temp = y;
+					y = z;
+					z = temp;
+				}
+
+				if (z < x)
+				{
+					temp = x;
+					x = z;
+					z = temp;
+				}
+				if ( y < x)
+				{
+					temp = x;
+					x = y;
+					y = temp;
+				}
+
+				System.out.print(x + ", " + y + ", " + z + "\n");
+
+			}
+		}
+		catch(Exception exc)
+		{
+			System.out.print("Error: " + exc.getMessage());
+		}
+		finally
+		{
+			if (sc !=null) sc.close();
+		}
+	}
+}
