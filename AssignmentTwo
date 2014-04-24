@@ -1,0 +1,58 @@
+/**
+ * My Assignment Two
+ * @author Kumin In
+ *
+ */
+
+public class AssignmentTwo 
+{
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) 
+	{
+		byte theByte = 124;
+		short theShort = 1;
+		int theInt = 2;
+		long theLong = 15;
+		float theFloat = (float) 4.5;
+		double theDouble = 5.9;
+		char theChar = 'a';
+		boolean theBoolean = true;
+		
+		System.out.println("theByte = " + theByte);
+		System.out.println("theShort = " + theShort);
+		System.out.println("theInt = " + theInt);
+		System.out.println("theLong = " + theLong);
+		System.out.println("theFloat = " + theFloat);
+		System.out.println("theDouble = " + theDouble);
+		System.out.println("theChar = " + theChar);
+		System.out.println("theBoolean = " + theBoolean);
+		System.out.println("theByte + theShort = " + (theByte + theShort));
+		System.out.println("theByte - theShort = " + (theByte - theShort));
+		System.out.println("theByte * theLong = " + (theByte * theLong));
+		System.out.println("theByte << 4 = " + (theByte<<4) );
+		System.out.println("Execute: theByte = theByte << 4");
+		theByte = (byte)(theByte << 4); 
+		System.out.println("theByte = " + theByte);
+		System.out.println("theLong * 128 = " + (theLong * 128));
+		System.out.println("theLong / 128 = " + (theLong/128));
+		System.out.println("theLong / 128.0 = " + (theLong/128.0));
+		System.out.println("0 < theLong < 2 is " + (0 < theLong && theLong < 2));
+		System.out.println("0  < theLong < 100 is " + (0 < theLong && theLong <100));
+		System.out.println("theLong equals theLong is " + (theLong == theLong));
+		System.out.println("theLong not equals theLong is " +(theLong != theLong));
+		System.out.println("theChar + theChar = " + (char)(theChar + theChar));
+		System.out.println("theChar + 1 = " + (char)(theChar + 1));
+		System.out.println("theLong modulus 3 = " + (theLong % 3));
+		System.out.println("theLong modulus 2 = " + (theLong % 2));
+		System.out.println("theLong modulus 1 = " + (theLong % 1));
+		System.out.println("theBoolean and theBoolean is " + (theBoolean && theBoolean));
+		System.out.println("not(theBoolean and theBoolean) is " + !(theBoolean && theBoolean));
+		System.out.println("(not theBoolean) and theBoolean is " + ((!theBoolean) && theBoolean));
+		System.out.println("theBoolean or (not theBoolean) is " + (!theBoolean || theBoolean));
+		
+	}	
+
+}
